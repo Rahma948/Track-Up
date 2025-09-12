@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "622961120008",
+    "project_id": "trackup-2979a",
+    "storage_bucket": "trackup-2979a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622961120008:android:6561652bbf467c75d652bd",
+        "android_client_info": {
+          "package_name": "com.example.task_manger"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3vYUBffgXMquFfM88b8iRNRMlSIt8yDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
