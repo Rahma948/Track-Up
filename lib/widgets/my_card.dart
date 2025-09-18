@@ -41,7 +41,6 @@ class _MyCardState extends State<MyCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // العنوان
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -142,6 +141,15 @@ class _MyCardState extends State<MyCard> {
                                       onPressed: () async {
                                         await task.delete();
                                         setState(() {});
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            content: Text("Task deleted"),
+                                            backgroundColor: Colors.redAccent,
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
                                       },
                                     )
                                   : Row(
@@ -168,6 +176,18 @@ class _MyCardState extends State<MyCard> {
                                           ),
                                           onPressed: () async {
                                             await task.delete();
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                  "Task is deleted",
+                                                ),
+                                                backgroundColor:
+                                                    Colors.redAccent,
+                                                duration: Duration(seconds: 2),
+                                              ),
+                                            );
                                             setState(() {});
                                           },
                                         ),

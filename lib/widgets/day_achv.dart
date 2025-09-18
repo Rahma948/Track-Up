@@ -31,6 +31,7 @@ class DayAchievment extends StatelessWidget {
                 Text(
                   txt,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 4),
                 Text('$completed\\$total'),

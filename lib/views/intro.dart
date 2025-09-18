@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:task_manger/config/constant.dart';
 import 'package:task_manger/config/theme.dart';
 import 'package:task_manger/views/login_view.dart';
@@ -17,11 +18,13 @@ class _MyIntroViewState extends State<MyIntroView> {
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () async {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginView()),
       );
+      var myAppBox = Hive.box(appBox);
+      await myAppBox.put("seenIntro", true);
     });
   }
 

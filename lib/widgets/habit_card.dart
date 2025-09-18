@@ -40,7 +40,6 @@ class _HabitCardState extends State<HabitCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // العنوان
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

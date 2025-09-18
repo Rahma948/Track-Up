@@ -1,15 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:task_manger/config/constant.dart';
-import 'package:task_manger/cubits/cubit/add_habit_cubit.dart';
-import 'package:task_manger/cubits/cubit/cubit/add_task_cubit.dart';
 import 'package:task_manger/firebase_options.dart';
 import 'package:task_manger/models/habit_model.dart';
 import 'package:task_manger/models/task_model.dart';
-import 'package:task_manger/views/intro.dart';
+import 'package:task_manger/services/notification_service.dart';
+import 'package:task_manger/widgets/track_up.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,24 +16,16 @@ void main() async {
   Hive.registerAdapter(TaskModelAdapter());
   await Hive.openBox<HabitModel>(habitBox);
   await Hive.openBox<TaskModel>(taskBox);
+  await Hive.openBox(profileBox);
+  await Hive.openBox(progresskBox);
+  await Hive.openBox(appBox);
+  await NotificationService().initNotifications();
+  await NotificationService().requestPermissions();
+
+  await NotificationService().showInstantNotification(
+    'Welcome To TrackUp✨',
+    'Start your journey \nimprove,and achieve more every day🚀',
+  );
 
   runApp(const TrackUp());
-}
-
-class TrackUp extends StatelessWidget {
-  const TrackUp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AddTaskCubit()),
-        BlocProvider(create: (context) => AddHabitCubit()),
-      ],
-      child: MaterialApp(
-        home: MyIntroView(),
-        debugShowCheckedModeBanner: false,
-      ),
-    );
-  }
 }

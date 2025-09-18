@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_manger/config/constant.dart';
 import 'package:task_manger/models/habit_model.dart';
 import 'package:task_manger/models/task_model.dart';
@@ -18,6 +18,8 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
     return ListView(
       children: [
         const CustomAppBar(),
@@ -29,7 +31,9 @@ class HomeBody extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: Hive.box<HabitModel>(habitBox).listenable(),
               builder: (context, Box<HabitModel> box, child) {
-                final habits = box.values.toList();
+                final habits = box.values
+                    .where((h) => h.userId == currentUserId)
+                    .toList();
                 final total = habits.length;
                 final completed = habits.where((h) => h.isCompleted).length;
                 return DayAchievment(
@@ -44,7 +48,9 @@ class HomeBody extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: Hive.box<TaskModel>(taskBox).listenable(),
               builder: (context, Box<TaskModel> box, _) {
-                final tasks = box.values.toList();
+                final tasks = box.values
+                    .where((t) => t.userId == currentUserId)
+                    .toList();
                 final total = tasks.length;
                 final completed = tasks.where((t) => t.isCompleted).length;
                 return DayAchievment(
@@ -59,6 +65,7 @@ class HomeBody extends StatelessWidget {
           ],
         ),
 
+        // Add buttons
         Row(
           children: [
             CustomAddButton(
@@ -79,10 +86,13 @@ class HomeBody extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
+        // Today's Tasks
         ValueListenableBuilder(
           valueListenable: Hive.box<TaskModel>(taskBox).listenable(),
           builder: (context, Box<TaskModel> box, _) {
-            final tasks = box.values.toList();
+            final tasks = box.values
+                .where((t) => t.userId == currentUserId)
+                .toList();
             return MyCard(
               txt: 'Today\'s Tasks',
               icon: Icons.access_time,
@@ -92,10 +102,14 @@ class HomeBody extends StatelessWidget {
         ),
 
         const SizedBox(height: 20),
+
+        // Today's Habits
         ValueListenableBuilder(
           valueListenable: Hive.box<HabitModel>(habitBox).listenable(),
           builder: (context, Box<HabitModel> box, _) {
-            final habits = box.values.toList();
+            final habits = box.values
+                .where((h) => h.userId == currentUserId)
+                .toList();
             return HabitCard(
               txt: 'Today\'s habits',
               icon: Icons.trending_up,

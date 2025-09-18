@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
-    required this.txt,
+    this.txt,
+    this.child,
     this.onTap,
     this.color = const Color.fromARGB(255, 121, 165, 241),
   });
-  final String txt;
+
+  final String? txt;
+  final Widget? child;
   final void Function()? onTap;
   final Color? color;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -22,14 +26,16 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         child: Center(
-          child: Text(
-            txt,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
+          child:
+              child ??
+              Text(
+                txt ?? '',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
         ),
       ),
     );

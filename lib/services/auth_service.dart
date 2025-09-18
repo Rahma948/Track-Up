@@ -29,12 +29,15 @@ class AuthService {
   Future<String?> register({
     required String email,
     required String password,
+    required String name,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
-      );
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(
+            email: email.trim(),
+            password: password.trim(),
+          );
+      await userCredential.user?.updateDisplayName(name);
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

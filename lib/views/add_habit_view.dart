@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manger/config/constant.dart';
@@ -120,37 +121,41 @@ class _AddHabitViewState extends State<AddHabitView> {
                 const SizedBox(height: 30),
 
                 // Dropdowns
-                Wrap(
-                  spacing: 5,
-                  runSpacing: 10,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      child: CategoryDropdown(
-                        categories: categories,
-                        hint: "Category",
-                        icon: Icons.category,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedCategory = val;
-                          });
-                        },
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    spacing: 5,
+
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.70,
+                        child: CategoryDropdown(
+                          categories: categories,
+                          hint: "Category",
+                          icon: Icons.category,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedCategory = val;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      child: CategoryDropdown(
-                        categories: frequencies,
-                        hint: 'Frequency',
-                        icon: Icons.repeat,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedFrequency = val;
-                          });
-                        },
+                      SizedBox(height: 10),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.70,
+                        child: CategoryDropdown(
+                          categories: frequencies,
+                          hint: 'Frequency',
+                          icon: Icons.repeat,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedFrequency = val;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 30),
@@ -214,6 +219,7 @@ class _AddHabitViewState extends State<AddHabitView> {
                                 name: nameController.text,
                                 category: selectedCategory!,
                                 frequency: selectedFrequency!,
+                                userId: FirebaseAuth.instance.currentUser!.uid,
                               ),
                             );
                           }

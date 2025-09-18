@@ -22,6 +22,9 @@ class HabitModel extends HiveObject {
   int streak;
   @HiveField(6)
   DateTime? lastCheckedDate;
+  @HiveField(7)
+  final String userId;
+
   HabitModel({
     required this.name,
     this.description,
@@ -29,5 +32,6 @@ class HabitModel extends HiveObject {
     required this.frequency,
     this.isCompleted = false,
     this.streak = 0,
+    required this.userId,
   });
 }

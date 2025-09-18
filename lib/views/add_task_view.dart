@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manger/config/constant.dart';
@@ -134,37 +135,41 @@ class _AddTaskViewState extends State<AddTaskView> {
                 const SizedBox(height: 30),
 
                 // Dropdowns
-                Wrap(
-                  spacing: 5,
-                  runSpacing: 10,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      child: CategoryDropdown(
-                        categories: categories,
-                        hint: "Category",
-                        icon: Icons.category,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedCategory = val;
-                          });
-                        },
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    spacing: 5,
+
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.70,
+                        child: CategoryDropdown(
+                          categories: categories,
+                          hint: "Category",
+                          icon: Icons.category,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedCategory = val;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      child: CategoryDropdown(
-                        categories: priorities,
-                        hint: 'Priority',
-                        icon: Icons.arrow_upward,
-                        onChanged: (val) {
-                          setState(() {
-                            selectedPriority = val;
-                          });
-                        },
+                      SizedBox(height: 10),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.70,
+                        child: CategoryDropdown(
+                          categories: priorities,
+                          hint: 'Priority',
+                          icon: Icons.arrow_upward,
+                          onChanged: (val) {
+                            setState(() {
+                              selectedPriority = val;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 30),
@@ -209,6 +214,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                                 category: selectedCategory!,
                                 priority: selectedPriority!,
                                 description: descController.text,
+                                userId: FirebaseAuth.instance.currentUser!.uid,
                               ),
                             );
                           }

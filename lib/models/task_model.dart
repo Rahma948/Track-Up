@@ -21,12 +21,18 @@ class TaskModel extends HiveObject {
 
   @HiveField(5)
   bool isCompleted;
+
+  @HiveField(6)
+  final String userId;
+
   TaskModel({
     required this.name,
     this.description,
     required this.category,
     required this.priority,
+
     this.endDate,
     this.isCompleted = false,
+    required this.userId,
   });
 }

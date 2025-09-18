@@ -28,7 +28,11 @@ class CustomAddButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(txt, style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              txt,
+              style: TextStyle(fontWeight: FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+            ),
             Icon(Icons.add),
           ],
         ),
